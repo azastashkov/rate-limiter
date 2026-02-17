@@ -1,0 +1,17 @@
+plugins {
+    id 'java-library'
+}
+
+dependencies {
+    api libs.lettuce.core
+    api 'io.projectreactor:reactor-core:3.6.11'
+    api libs.curator.framework
+    api libs.curator.recipes
+    api libs.jackson.databind
+    api libs.slf4j.api
+
+    implementation libs.logback.classic
+
+    testImplementation libs.junit.jupiter
+    testImplementation 'org.mockito:mockito-core:5.14.2'
+}

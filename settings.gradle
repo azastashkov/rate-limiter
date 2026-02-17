@@ -1,0 +1,10 @@
+plugins {
+    id 'org.gradle.toolchains.foojay-resolver-convention' version '0.8.0'
+}
+
+rootProject.name = 'rate-limiter'
+
+include 'rate-limiter-core'
+include 'rate-limiter-gateway'
+include 'test-api-service'
+include 'test-client'

@@ -1,0 +1,53 @@
+[
+  {
+    "id": "api-resource-token-bucket",
+    "path": "/api/resource",
+    "algorithm": "token_bucket",
+    "bucketCapacity": 10,
+    "refillRate": 2.0,
+    "maxRequests": 10,
+    "windowSizeSeconds": 60,
+    "keyResolver": "ip"
+  },
+  {
+    "id": "api-users-fixed-window",
+    "path": "/api/users/**",
+    "algorithm": "fixed_window",
+    "maxRequests": 5,
+    "windowSizeSeconds": 60,
+    "bucketCapacity": 5,
+    "refillRate": 1.0,
+    "leakRate": 1.0,
+    "keyResolver": "ip_path"
+  },
+  {
+    "id": "api-slow-leaking-bucket",
+    "path": "/api/slow",
+    "algorithm": "leaking_bucket",
+    "bucketCapacity": 3,
+    "leakRate": 0.5,
+    "maxRequests": 3,
+    "windowSizeSeconds": 60,
+    "keyResolver": "ip"
+  },
+  {
+    "id": "api-health-sliding-window-log",
+    "path": "/api/health",
+    "algorithm": "sliding_window_log",
+    "maxRequests": 20,
+    "windowSizeSeconds": 60,
+    "bucketCapacity": 20,
+    "refillRate": 1.0,
+    "keyResolver": "ip"
+  },
+  {
+    "id": "default-sliding-window-counter",
+    "path": "/**",
+    "algorithm": "sliding_window_counter",
+    "maxRequests": 100,
+    "windowSizeSeconds": 60,
+    "bucketCapacity": 100,
+    "refillRate": 2.0,
+    "keyResolver": "ip"
+  }
+]

@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: test-client
+  main:
+    web-application-type: none
+
+gateway:
+  url: ${GATEWAY_URL:http://localhost:8080}
+
+test:
+  requests: ${TEST_REQUESTS:20}
+  concurrent: ${TEST_CONCURRENT:5}
+  endpoint: ${TEST_ENDPOINT:/api/resource}
+  delay-ms: ${TEST_DELAY_MS:100}
