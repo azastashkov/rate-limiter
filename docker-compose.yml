@@ -18,6 +18,7 @@ services:
     environment:
       ZOO_MY_ID: 1
       ZOO_SERVERS: server.1=zookeeper:2888:3888;2181
+      ZOO_4LW_COMMANDS_WHITELIST: ruok,srvr,stat,mntr
     volumes:
       - zk-data:/data
       - zk-datalog:/datalog
@@ -47,10 +48,11 @@ services:
       - ./config/init-rules.json:/init-rules.json
     entrypoint: >
       /bin/bash -c "
-        echo 'Waiting for ZooKeeper...' &&
+        ZKCLI=$$(find / -name zkCli.sh -print -quit 2>/dev/null) &&
+        echo \"Using $$ZKCLI\" &&
         sleep 3 &&
-        /apache-zookeeper-3.9.2-bin/bin/zkCli.sh -server zookeeper:2181 create /rate-limiter '' 2>/dev/null;
-        /apache-zookeeper-3.9.2-bin/bin/zkCli.sh -server zookeeper:2181 create /rate-limiter/rules \"$$(cat /init-rules.json)\" 2>/dev/null;
+        $$ZKCLI -server zookeeper:2181 create /rate-limiter '' 2>/dev/null;
+        $$ZKCLI -server zookeeper:2181 create /rate-limiter/rules \"$$(cat /init-rules.json)\" 2>/dev/null;
         echo 'ZooKeeper initialized with rate limit rules'
       "
 

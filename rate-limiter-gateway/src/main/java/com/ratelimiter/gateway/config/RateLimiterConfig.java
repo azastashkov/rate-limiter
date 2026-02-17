@@ -1,7 +1,7 @@
 package com.ratelimiter.gateway.config;
 
 import com.ratelimiter.core.algorithm.RateLimiterFactory;
-import io.lettuce.core.api.reactive.RedisScriptingReactiveCommands;
+import io.lettuce.core.api.sync.RedisCommands;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Configuration;
 public class RateLimiterConfig {
 
     @Bean
-    public RateLimiterFactory rateLimiterFactory(RedisScriptingReactiveCommands<String, String> commands) {
+    public RateLimiterFactory rateLimiterFactory(RedisCommands<String, String> commands) {
         return new RateLimiterFactory(commands);
     }
 }

@@ -1,7 +1,7 @@
 package com.ratelimiter.core.algorithm;
 
 import com.ratelimiter.core.model.AlgorithmType;
-import io.lettuce.core.api.reactive.RedisScriptingReactiveCommands;
+import io.lettuce.core.api.sync.RedisCommands;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -9,9 +9,9 @@ import java.util.concurrent.ConcurrentHashMap;
 public class RateLimiterFactory {
 
     private final Map<AlgorithmType, RateLimiter> limiters = new ConcurrentHashMap<>();
-    private final RedisScriptingReactiveCommands<String, String> commands;
+    private final RedisCommands<String, String> commands;
 
-    public RateLimiterFactory(RedisScriptingReactiveCommands<String, String> commands) {
+    public RateLimiterFactory(RedisCommands<String, String> commands) {
         this.commands = commands;
     }
 

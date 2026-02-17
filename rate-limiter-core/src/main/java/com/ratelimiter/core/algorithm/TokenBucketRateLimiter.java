@@ -3,8 +3,9 @@ package com.ratelimiter.core.algorithm;
 import com.ratelimiter.core.model.RateLimitResult;
 import com.ratelimiter.core.model.RateLimitRule;
 import io.lettuce.core.ScriptOutputType;
-import io.lettuce.core.api.reactive.RedisScriptingReactiveCommands;
-import reactor.core.publisher.Mono;
+import io.lettuce.core.api.sync.RedisCommands;
+
+import java.util.List;
 
 /**
  * Token Bucket algorithm.
@@ -47,14 +48,15 @@ public class TokenBucketRateLimiter implements RateLimiter {
             return {allowed, remaining}
             """;
 
-    private final RedisScriptingReactiveCommands<String, String> commands;
+    private final RedisCommands<String, String> commands;
 
-    public TokenBucketRateLimiter(RedisScriptingReactiveCommands<String, String> commands) {
+    public TokenBucketRateLimiter(RedisCommands<String, String> commands) {
         this.commands = commands;
     }
 
     @Override
-    public Mono<RateLimitResult> isAllowed(String key, RateLimitRule rule) {
+    @SuppressWarnings("unchecked")
+    public RateLimitResult check(String key, RateLimitRule rule) {
         String redisKey = "rl:tb:" + key;
         long nowSeconds = System.currentTimeMillis() / 1000;
 
@@ -65,17 +67,14 @@ public class TokenBucketRateLimiter implements RateLimiter {
                 String.valueOf(nowSeconds)
         };
 
-        return commands.eval(SCRIPT, ScriptOutputType.MULTI, keys, args)
-                .collectList()
-                .map(result -> {
-                    long allowed = (Long) result.get(0);
-                    long remaining = (Long) result.get(1);
-                    if (allowed == 1) {
-                        return RateLimitResult.allowed(remaining);
-                    } else {
-                        long retryAfter = (long) (1000.0 / rule.getRefillRate());
-                        return RateLimitResult.denied(retryAfter);
-                    }
-                });
+        List<Long> result = commands.eval(SCRIPT, ScriptOutputType.MULTI, keys, args);
+        long allowed = result.get(0);
+        long remaining = result.get(1);
+        if (allowed == 1) {
+            return RateLimitResult.allowed(remaining);
+        } else {
+            long retryAfter = (long) (1000.0 / rule.getRefillRate());
+            return RateLimitResult.denied(retryAfter);
+        }
     }
 }

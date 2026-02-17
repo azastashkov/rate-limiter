@@ -1,7 +1,7 @@
 package com.ratelimiter.core.algorithm;
 
 import com.ratelimiter.core.model.AlgorithmType;
-import io.lettuce.core.api.reactive.RedisScriptingReactiveCommands;
+import io.lettuce.core.api.sync.RedisCommands;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -10,8 +10,8 @@ import static org.mockito.Mockito.mock;
 class RateLimiterFactoryTest {
 
     @SuppressWarnings("unchecked")
-    private final RedisScriptingReactiveCommands<String, String> commands =
-            mock(RedisScriptingReactiveCommands.class);
+    private final RedisCommands<String, String> commands =
+            mock(RedisCommands.class);
 
     @Test
     void createsTokenBucketLimiter() {

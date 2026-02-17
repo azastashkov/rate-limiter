@@ -3,8 +3,9 @@ package com.ratelimiter.core.algorithm;
 import com.ratelimiter.core.model.RateLimitResult;
 import com.ratelimiter.core.model.RateLimitRule;
 import io.lettuce.core.ScriptOutputType;
-import io.lettuce.core.api.reactive.RedisScriptingReactiveCommands;
-import reactor.core.publisher.Mono;
+import io.lettuce.core.api.sync.RedisCommands;
+
+import java.util.List;
 
 /**
  * Sliding Window Log algorithm.
@@ -40,14 +41,15 @@ public class SlidingWindowLogRateLimiter implements RateLimiter {
             return {allowed, remaining}
             """;
 
-    private final RedisScriptingReactiveCommands<String, String> commands;
+    private final RedisCommands<String, String> commands;
 
-    public SlidingWindowLogRateLimiter(RedisScriptingReactiveCommands<String, String> commands) {
+    public SlidingWindowLogRateLimiter(RedisCommands<String, String> commands) {
         this.commands = commands;
     }
 
     @Override
-    public Mono<RateLimitResult> isAllowed(String key, RateLimitRule rule) {
+    @SuppressWarnings("unchecked")
+    public RateLimitResult check(String key, RateLimitRule rule) {
         String redisKey = "rl:swl:" + key;
         long nowMillis = System.currentTimeMillis();
         String requestId = nowMillis + ":" + Thread.currentThread().threadId() + ":" + Math.random();
@@ -60,16 +62,13 @@ public class SlidingWindowLogRateLimiter implements RateLimiter {
                 requestId
         };
 
-        return commands.eval(SCRIPT, ScriptOutputType.MULTI, keys, args)
-                .collectList()
-                .map(result -> {
-                    long allowed = (Long) result.get(0);
-                    long remaining = (Long) result.get(1);
-                    if (allowed == 1) {
-                        return RateLimitResult.allowed(remaining);
-                    } else {
-                        return RateLimitResult.denied(rule.getWindowSizeSeconds() * 1000);
-                    }
-                });
+        List<Long> result = commands.eval(SCRIPT, ScriptOutputType.MULTI, keys, args);
+        long allowed = result.get(0);
+        long remaining = result.get(1);
+        if (allowed == 1) {
+            return RateLimitResult.allowed(remaining);
+        } else {
+            return RateLimitResult.denied(rule.getWindowSizeSeconds() * 1000);
+        }
     }
 }
