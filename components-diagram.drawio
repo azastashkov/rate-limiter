@@ -1,0 +1,309 @@
+<mxfile host="app.diagrams.net" agent="Claude Code" version="26.0.0">
+  <diagram id="component-diagram" name="Components Diagram">
+    <mxGraphModel dx="1422" dy="762" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="1200" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- ========== RATE-LIMITER-GATEWAY MODULE ========== -->
+        <mxCell id="gateway" value="&lt;b&gt;&amp;laquo;module&amp;raquo;&lt;/b&gt;&lt;br&gt;rate-limiter-gateway" style="shape=component;align=center;spacingLeft=36;rounded=1;shadow=0;strokeColor=#6c8ebf;fillColor=#dae8fc;fontSize=14;verticalAlign=top;spacingTop=5;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="440" y="40" width="520" height="340" as="geometry" />
+        </mxCell>
+
+        <!-- Gateway: RateLimitGlobalFilter -->
+        <mxCell id="globalFilter" value="&lt;b&gt;RateLimitGlobalFilter&lt;/b&gt;&lt;br&gt;&lt;i&gt;GlobalFilter, Ordered&lt;/i&gt;&lt;br&gt;&lt;hr&gt;Intercepts all requests&lt;br&gt;Applies rate limiting&lt;br&gt;Returns 429 if denied&lt;br&gt;Fails open on errors" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=11;verticalAlign=top;spacingTop=2;align=center;" vertex="1" parent="1">
+          <mxGeometry x="470" y="100" width="200" height="130" as="geometry" />
+        </mxCell>
+
+        <!-- Gateway: RulesController -->
+        <mxCell id="rulesController" value="&lt;b&gt;RulesController&lt;/b&gt;&lt;br&gt;&lt;hr&gt;GET /admin/rules&lt;br&gt;PUT /admin/rules" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=11;verticalAlign=top;spacingTop=2;align=center;" vertex="1" parent="1">
+          <mxGeometry x="470" y="260" width="200" height="90" as="geometry" />
+        </mxCell>
+
+        <!-- Gateway: Config classes -->
+        <mxCell id="gatewayConfig" value="&lt;b&gt;Configuration&lt;/b&gt;&lt;hr&gt;RedisConfig&lt;br&gt;ZooKeeperConfig&lt;br&gt;RateLimiterConfig" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=11;verticalAlign=top;spacingTop=2;align=center;" vertex="1" parent="1">
+          <mxGeometry x="720" y="100" width="200" height="100" as="geometry" />
+        </mxCell>
+
+        <!-- Gateway: Route Config -->
+        <mxCell id="routeConfig" value="&lt;b&gt;Spring Cloud Gateway&lt;/b&gt;&lt;hr&gt;Routes: /api/** → API Service&lt;br&gt;Actuator: /actuator/**" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=11;verticalAlign=top;spacingTop=2;align=center;" vertex="1" parent="1">
+          <mxGeometry x="720" y="230" width="200" height="90" as="geometry" />
+        </mxCell>
+
+        <!-- ========== RATE-LIMITER-CORE MODULE ========== -->
+        <mxCell id="core" value="&lt;b&gt;&amp;laquo;module&amp;raquo;&lt;/b&gt;&lt;br&gt;rate-limiter-core" style="shape=component;align=center;spacingLeft=36;rounded=1;shadow=0;strokeColor=#82b366;fillColor=#d5e8d4;fontSize=14;verticalAlign=top;spacingTop=5;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="280" y="450" width="840" height="350" as="geometry" />
+        </mxCell>
+
+        <!-- Core: RateLimiter Interface -->
+        <mxCell id="rateLimiterIface" value="&lt;b&gt;&amp;laquo;interface&amp;raquo;&lt;/b&gt;&lt;br&gt;&lt;b&gt;RateLimiter&lt;/b&gt;&lt;hr&gt;check(key, rule): RateLimitResult&lt;br&gt;isAllowed(key, rule): Mono&amp;lt;RateLimitResult&amp;gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=11;verticalAlign=top;spacingTop=2;align=center;" vertex="1" parent="1">
+          <mxGeometry x="310" y="520" width="260" height="80" as="geometry" />
+        </mxCell>
+
+        <!-- Core: Algorithm Implementations -->
+        <mxCell id="tokenBucket" value="&lt;b&gt;TokenBucket&lt;br&gt;RateLimiter&lt;/b&gt;&lt;br&gt;&lt;i&gt;rl:tb:&amp;lt;key&amp;gt;&lt;/i&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontSize=10;verticalAlign=middle;align=center;fontColor=#333333;" vertex="1" parent="1">
+          <mxGeometry x="310" y="640" width="130" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="leakingBucket" value="&lt;b&gt;LeakingBucket&lt;br&gt;RateLimiter&lt;/b&gt;&lt;br&gt;&lt;i&gt;rl:lb:&amp;lt;key&amp;gt;&lt;/i&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontSize=10;verticalAlign=middle;align=center;fontColor=#333333;" vertex="1" parent="1">
+          <mxGeometry x="460" y="640" width="130" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="fixedWindow" value="&lt;b&gt;FixedWindow&lt;br&gt;RateLimiter&lt;/b&gt;&lt;br&gt;&lt;i&gt;rl:fw:&amp;lt;key&amp;gt;&lt;/i&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontSize=10;verticalAlign=middle;align=center;fontColor=#333333;" vertex="1" parent="1">
+          <mxGeometry x="610" y="640" width="130" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="slidingWindowLog" value="&lt;b&gt;SlidingWindowLog&lt;br&gt;RateLimiter&lt;/b&gt;&lt;br&gt;&lt;i&gt;rl:swl:&amp;lt;key&amp;gt;&lt;/i&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontSize=10;verticalAlign=middle;align=center;fontColor=#333333;" vertex="1" parent="1">
+          <mxGeometry x="760" y="640" width="140" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="slidingWindowCounter" value="&lt;b&gt;SlidingWindowCounter&lt;br&gt;RateLimiter&lt;/b&gt;&lt;br&gt;&lt;i&gt;rl:swc:&amp;lt;key&amp;gt;&lt;/i&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontSize=10;verticalAlign=middle;align=center;fontColor=#333333;" vertex="1" parent="1">
+          <mxGeometry x="920" y="640" width="150" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- Core: RateLimiterFactory -->
+        <mxCell id="factory" value="&lt;b&gt;RateLimiterFactory&lt;/b&gt;&lt;hr&gt;getLimiter(AlgorithmType)&lt;br&gt;&lt;i&gt;Caches instances per type&lt;/i&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=11;verticalAlign=top;spacingTop=2;align=center;" vertex="1" parent="1">
+          <mxGeometry x="610" y="510" width="200" height="70" as="geometry" />
+        </mxCell>
+
+        <!-- Core: RateLimitConfigService -->
+        <mxCell id="configService" value="&lt;b&gt;RateLimitConfigService&lt;/b&gt;&lt;hr&gt;Watches /rate-limiter/rules&lt;br&gt;Notifies listeners on change" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=11;verticalAlign=top;spacingTop=2;align=center;" vertex="1" parent="1">
+          <mxGeometry x="860" y="510" width="210" height="70" as="geometry" />
+        </mxCell>
+
+        <!-- Core: RuleMatchService -->
+        <mxCell id="ruleMatchService" value="&lt;b&gt;RuleMatchService&lt;/b&gt;&lt;hr&gt;findMatchingRule(path)&lt;br&gt;&lt;i&gt;exact, /*, /** patterns&lt;/i&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=11;verticalAlign=top;spacingTop=2;align=center;" vertex="1" parent="1">
+          <mxGeometry x="860" y="730" width="210" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- Core: Models -->
+        <mxCell id="models" value="&lt;b&gt;&amp;laquo;models&amp;raquo;&lt;/b&gt;&lt;hr&gt;RateLimitRule&lt;br&gt;RateLimitResult (record)&lt;br&gt;AlgorithmType (enum)&lt;br&gt;KeyResolverType (enum)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=11;verticalAlign=top;spacingTop=2;align=center;" vertex="1" parent="1">
+          <mxGeometry x="310" y="720" width="180" height="100" as="geometry" />
+        </mxCell>
+
+        <!-- ========== TEST-API-SERVICE MODULE ========== -->
+        <mxCell id="testApi" value="&lt;b&gt;&amp;laquo;module&amp;raquo;&lt;/b&gt;&lt;br&gt;test-api-service" style="shape=component;align=center;spacingLeft=36;rounded=1;shadow=0;strokeColor=#d79b00;fillColor=#ffe6cc;fontSize=14;verticalAlign=top;spacingTop=5;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="1080" y="40" width="260" height="200" as="geometry" />
+        </mxCell>
+        <mxCell id="apiController" value="&lt;b&gt;ApiController&lt;/b&gt;&lt;hr&gt;GET /api/health&lt;br&gt;GET /api/resource&lt;br&gt;POST /api/resource&lt;br&gt;GET /api/slow&lt;br&gt;GET /api/users/{id}" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontSize=11;verticalAlign=top;spacingTop=2;align=center;fontColor=#333333;" vertex="1" parent="1">
+          <mxGeometry x="1110" y="100" width="190" height="120" as="geometry" />
+        </mxCell>
+
+        <!-- ========== TEST-CLIENT MODULE ========== -->
+        <mxCell id="testClient" value="&lt;b&gt;&amp;laquo;module&amp;raquo;&lt;/b&gt;&lt;br&gt;test-client" style="shape=component;align=center;spacingLeft=36;rounded=1;shadow=0;strokeColor=#a9c4eb;fillColor=#e8f0fe;fontSize=14;verticalAlign=top;spacingTop=5;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="80" y="40" width="260" height="160" as="geometry" />
+        </mxCell>
+        <mxCell id="testRunner" value="&lt;b&gt;RateLimitTestRunner&lt;/b&gt;&lt;br&gt;&lt;i&gt;CommandLineRunner&lt;/i&gt;&lt;hr&gt;Sends concurrent requests&lt;br&gt;Tracks allowed/denied/errors" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontSize=11;verticalAlign=top;spacingTop=2;align=center;fontColor=#333333;" vertex="1" parent="1">
+          <mxGeometry x="110" y="100" width="200" height="85" as="geometry" />
+        </mxCell>
+
+        <!-- ========== EXTERNAL SYSTEMS ========== -->
+        <!-- Redis -->
+        <mxCell id="redis" value="&lt;b&gt;Redis&lt;/b&gt;&lt;br&gt;&lt;i&gt;:6379&lt;/i&gt;&lt;hr&gt;Rate limit state store&lt;br&gt;Hashes, Strings, Sorted Sets&lt;br&gt;Lua scripts for atomicity" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#f8cecc;strokeColor=#b85450;fontSize=11;verticalAlign=middle;align=center;" vertex="1" parent="1">
+          <mxGeometry x="80" y="900" width="200" height="130" as="geometry" />
+        </mxCell>
+
+        <!-- ZooKeeper -->
+        <mxCell id="zookeeper" value="&lt;b&gt;ZooKeeper&lt;/b&gt;&lt;br&gt;&lt;i&gt;:2181&lt;/i&gt;&lt;hr&gt;Distributed config store&lt;br&gt;/rate-limiter/rules&lt;br&gt;Watch for changes" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;verticalAlign=middle;align=center;" vertex="1" parent="1">
+          <mxGeometry x="380" y="900" width="200" height="130" as="geometry" />
+        </mxCell>
+
+        <!-- Prometheus -->
+        <mxCell id="prometheus" value="&lt;b&gt;Prometheus&lt;/b&gt;&lt;br&gt;&lt;i&gt;:9091&lt;/i&gt;&lt;hr&gt;Scrapes /actuator/prometheus&lt;br&gt;rate_limiter.requests.*" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;verticalAlign=middle;align=center;" vertex="1" parent="1">
+          <mxGeometry x="680" y="900" width="200" height="120" as="geometry" />
+        </mxCell>
+
+        <!-- Grafana -->
+        <mxCell id="grafana" value="&lt;b&gt;Grafana&lt;/b&gt;&lt;br&gt;&lt;i&gt;:3000&lt;/i&gt;&lt;hr&gt;Dashboards&lt;br&gt;Visualization" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;verticalAlign=middle;align=center;" vertex="1" parent="1">
+          <mxGeometry x="980" y="900" width="180" height="110" as="geometry" />
+        </mxCell>
+
+        <!-- ========== DEPENDENCY ARROWS ========== -->
+
+        <!-- test-client → gateway (HTTP) -->
+        <mxCell id="e1" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.25;entryDx=0;entryDy=0;strokeColor=#0000FF;strokeWidth=2;dashed=1;" edge="1" source="testClient" target="gateway" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e1label" value="HTTP requests" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;fontColor=#0000FF;" vertex="1" connectable="0" parent="e1">
+          <mxGeometry x="-0.1" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+
+        <!-- gateway → test-api-service (routes /api/**) -->
+        <mxCell id="e2" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;exitX=1;exitY=0.25;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeColor=#0000FF;strokeWidth=2;dashed=1;" edge="1" source="gateway" target="testApi" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e2label" value="Routes /api/**" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;fontColor=#0000FF;" vertex="1" connectable="0" parent="e2">
+          <mxGeometry x="-0.1" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+
+        <!-- gateway → core (depends on) -->
+        <mxCell id="e3" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeColor=#333333;strokeWidth=2;" edge="1" source="gateway" target="core" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e3label" value="&lt;b&gt;&amp;laquo;depends on&amp;raquo;&lt;/b&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;" vertex="1" connectable="0" parent="e3">
+          <mxGeometry x="-0.1" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+
+        <!-- GlobalFilter → Factory (uses) -->
+        <mxCell id="e4" style="rounded=1;orthogonalLoop=1;jettySize=auto;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeColor=#9673a6;strokeWidth=1;dashed=1;" edge="1" source="globalFilter" target="factory" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="570" y="470" />
+              <mxPoint x="710" y="470" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e4label" value="uses" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=9;fontColor=#9673a6;" vertex="1" connectable="0" parent="e4">
+          <mxGeometry x="-0.1" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+
+        <!-- GlobalFilter → RuleMatchService (uses) -->
+        <mxCell id="e5" style="rounded=1;orthogonalLoop=1;jettySize=auto;strokeColor=#9673a6;strokeWidth=1;dashed=1;" edge="1" source="globalFilter" target="ruleMatchService" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="500" y="760" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e5label" value="finds matching rule" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=9;fontColor=#9673a6;" vertex="1" connectable="0" parent="e5">
+          <mxGeometry x="0.3" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+
+        <!-- RulesController → ConfigService (uses) -->
+        <mxCell id="e6" style="rounded=1;orthogonalLoop=1;jettySize=auto;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeColor=#9673a6;strokeWidth=1;dashed=1;" edge="1" source="rulesController" target="configService" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="570" y="430" />
+              <mxPoint x="965" y="430" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e6label" value="manages rules" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=9;fontColor=#9673a6;" vertex="1" connectable="0" parent="e6">
+          <mxGeometry x="-0.1" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Factory → RateLimiter interface (creates) -->
+        <mxCell id="e7" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;strokeColor=#b85450;strokeWidth=1;dashed=1;" edge="1" source="factory" target="rateLimiterIface" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e7label" value="creates" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=9;fontColor=#b85450;" vertex="1" connectable="0" parent="e7">
+          <mxGeometry x="-0.1" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Algorithms implement RateLimiter -->
+        <mxCell id="e8" style="edgeStyle=orthogonalEdgeStyle;rounded=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.25;entryY=1;entryDx=0;entryDy=0;strokeColor=#b85450;strokeWidth=1;endArrow=block;endFill=0;dashed=1;" edge="1" source="tokenBucket" target="rateLimiterIface" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e9" style="edgeStyle=orthogonalEdgeStyle;rounded=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;strokeColor=#b85450;strokeWidth=1;endArrow=block;endFill=0;dashed=1;" edge="1" source="leakingBucket" target="rateLimiterIface" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e10" style="edgeStyle=orthogonalEdgeStyle;rounded=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.75;entryY=1;entryDx=0;entryDy=0;strokeColor=#b85450;strokeWidth=1;endArrow=block;endFill=0;dashed=1;" edge="1" source="fixedWindow" target="rateLimiterIface" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e11" style="rounded=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=1;entryY=1;entryDx=0;entryDy=0;strokeColor=#b85450;strokeWidth=1;endArrow=block;endFill=0;dashed=1;" edge="1" source="slidingWindowLog" target="rateLimiterIface" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e12" style="rounded=1;exitX=0;exitY=0;exitDx=0;exitDy=0;entryX=1;entryY=1;entryDx=0;entryDy=0;strokeColor=#b85450;strokeWidth=1;endArrow=block;endFill=0;dashed=1;" edge="1" source="slidingWindowCounter" target="rateLimiterIface" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="920" y="620" />
+              <mxPoint x="570" y="620" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- RuleMatchService → ConfigService -->
+        <mxCell id="e13" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;strokeColor=#82b366;strokeWidth=1;" edge="1" source="ruleMatchService" target="configService" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e13label" value="reads rules from" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=9;fontColor=#82b366;" vertex="1" connectable="0" parent="e13">
+          <mxGeometry x="-0.1" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Algorithms → Redis -->
+        <mxCell id="e14" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;exitX=0.25;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeColor=#b85450;strokeWidth=2;" edge="1" source="core" target="redis" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e14label" value="&lt;b&gt;Lua scripts&lt;/b&gt;&lt;br&gt;Lettuce client" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;fontColor=#b85450;" vertex="1" connectable="0" parent="e14">
+          <mxGeometry x="-0.1" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+
+        <!-- ConfigService → ZooKeeper -->
+        <mxCell id="e15" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;exitX=0.45;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeColor=#82b366;strokeWidth=2;" edge="1" source="core" target="zookeeper" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e15label" value="&lt;b&gt;Curator client&lt;/b&gt;&lt;br&gt;NodeCache watch" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;fontColor=#82b366;" vertex="1" connectable="0" parent="e15">
+          <mxGeometry x="-0.1" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Gateway → Prometheus -->
+        <mxCell id="e16" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;exitX=0.7;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeColor=#6c8ebf;strokeWidth=2;dashed=1;" edge="1" source="core" target="prometheus" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e16label" value="&lt;b&gt;Micrometer&lt;/b&gt;&lt;br&gt;/actuator/prometheus" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;fontColor=#6c8ebf;" vertex="1" connectable="0" parent="e16">
+          <mxGeometry x="-0.1" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Prometheus → Grafana -->
+        <mxCell id="e17" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeColor=#6c8ebf;strokeWidth=2;dashed=1;" edge="1" source="prometheus" target="grafana" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e17label" value="data source" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;fontColor=#6c8ebf;" vertex="1" connectable="0" parent="e17">
+          <mxGeometry x="-0.1" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+
+        <!-- ========== LEGEND ========== -->
+        <mxCell id="legend" value="&lt;b&gt;Legend&lt;/b&gt;" style="text;html=1;strokeColor=#666666;fillColor=#f5f5f5;align=center;verticalAlign=top;whiteSpace=wrap;rounded=1;fontSize=12;fontColor=#333333;" vertex="1" parent="1">
+          <mxGeometry x="1200" y="450" width="200" height="200" as="geometry" />
+        </mxCell>
+        <mxCell id="leg1" value="Module boundary" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;fontColor=#333333;" vertex="1" parent="1">
+          <mxGeometry x="1240" y="480" width="150" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="leg2" value="Service / Component" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;fontColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="1240" y="505" width="150" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="leg3" value="Configuration" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;fontColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="1240" y="530" width="150" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="leg4" value="Interface / Contract" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;fontColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="1240" y="555" width="150" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="leg5" value="External datastore" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;fontColor=#333333;" vertex="1" parent="1">
+          <mxGeometry x="1240" y="580" width="150" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="leg6" value="— HTTP / dashed = async" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;fontColor=#0000FF;" vertex="1" parent="1">
+          <mxGeometry x="1240" y="605" width="160" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="leg7" value="— Dependency / solid" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;fontColor=#333333;" vertex="1" parent="1">
+          <mxGeometry x="1240" y="630" width="160" height="20" as="geometry" />
+        </mxCell>
+
+        <!-- Title -->
+        <mxCell id="title" value="Rate Limiter — Components Diagram" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=20;fontStyle=1;fontColor=#333333;" vertex="1" parent="1">
+          <mxGeometry x="480" y="0" width="440" height="40" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
