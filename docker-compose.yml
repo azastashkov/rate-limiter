@@ -149,7 +149,7 @@ services:
     build:
       context: ./test-client
     environment:
-      GATEWAY_URL: http://rate-limiter-1:8080
+      GATEWAY_URL: ${GATEWAY_URL:-http://rate-limiter-1:8080}
       TEST_REQUESTS: 30
       TEST_CONCURRENT: 5
       TEST_ENDPOINT: /api/resource
