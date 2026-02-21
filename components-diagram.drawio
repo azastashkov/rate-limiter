@@ -40,8 +40,8 @@
         <mxCell id="factory" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=11;verticalAlign=top;spacingTop=2;align=center;" value="&lt;b&gt;RateLimiterFactory&lt;/b&gt;&lt;hr&gt;getLimiter(AlgorithmType)&lt;br&gt;&lt;i&gt;Caches instances per type&lt;/i&gt;" vertex="1">
           <mxGeometry height="70" width="200" x="665" y="580" as="geometry" />
         </mxCell>
-        <mxCell id="configService" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=11;verticalAlign=top;spacingTop=2;align=center;" value="&lt;b&gt;RateLimitConfigService&lt;/b&gt;&lt;hr&gt;Watches /rate-limiter/rules&lt;br&gt;Notifies listeners on change" vertex="1">
-          <mxGeometry height="70" width="210" x="910" y="580" as="geometry" />
+        <mxCell id="configService" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=11;verticalAlign=top;spacingTop=2;align=center;" value="&lt;b&gt;RateLimitConfigService&lt;/b&gt;&lt;hr&gt;Watches /rate-limiter/rules path in ZooKeeper&lt;br&gt;Notifies listeners on change" vertex="1">
+          <mxGeometry height="70" width="230" x="900" y="580" as="geometry" />
         </mxCell>
         <mxCell id="ruleMatchService" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=11;verticalAlign=top;spacingTop=2;align=center;" value="&lt;b&gt;RuleMatchService&lt;/b&gt;&lt;hr&gt;findMatchingRule(path)&lt;br&gt;&lt;i&gt;exact, /*, /** patterns&lt;/i&gt;" vertex="1">
           <mxGeometry height="60" width="210" x="910" y="800" as="geometry" />
