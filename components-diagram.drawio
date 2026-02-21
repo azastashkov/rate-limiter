@@ -1,6 +1,6 @@
 <mxfile host="Electron" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/29.5.1 Chrome/142.0.7444.265 Electron/39.6.1 Safari/537.36" version="29.5.1">
   <diagram id="component-diagram" name="Components Diagram">
-    <mxGraphModel dx="2066" dy="1272" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="1200" math="0" shadow="0">
+    <mxGraphModel dx="1878" dy="1156" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="1200" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -8,10 +8,7 @@
           <mxGeometry height="340" width="520" x="490" y="110" as="geometry" />
         </mxCell>
         <mxCell id="globalFilter" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=11;verticalAlign=top;spacingTop=2;align=center;" value="&lt;b&gt;RateLimitGlobalFilter&lt;/b&gt;&lt;br&gt;&lt;i&gt;GlobalFilter, Ordered&lt;/i&gt;&lt;br&gt;&lt;hr&gt;Intercepts all requests&lt;br&gt;Applies rate limiting&lt;br&gt;Returns 429 if denied&lt;br&gt;Fails open on errors" vertex="1">
-          <mxGeometry height="130" width="200" x="540" y="300" as="geometry" />
-        </mxCell>
-        <mxCell id="rulesController" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=11;verticalAlign=top;spacingTop=2;align=center;" value="&lt;b&gt;RulesController&lt;/b&gt;&lt;br&gt;&lt;hr&gt;GET /admin/rules&lt;br&gt;PUT /admin/rules" vertex="1">
-          <mxGeometry height="90" width="200" x="540" y="170" as="geometry" />
+          <mxGeometry height="130" width="200" x="540" y="215" as="geometry" />
         </mxCell>
         <mxCell id="gatewayConfig" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=11;verticalAlign=top;spacingTop=2;align=center;" value="&lt;b&gt;Configuration&lt;/b&gt;&lt;hr&gt;RedisConfig&lt;br&gt;ZooKeeperConfig&lt;br&gt;RateLimiterConfig" vertex="1">
           <mxGeometry height="100" width="200" x="774" y="170" as="geometry" />
@@ -53,10 +50,10 @@
           <mxGeometry height="100" width="180" x="360" y="790" as="geometry" />
         </mxCell>
         <mxCell id="testApi" parent="1" style="shape=component;align=center;spacingLeft=36;rounded=1;shadow=0;strokeColor=#d79b00;fillColor=#ffe6cc;fontSize=14;verticalAlign=top;spacingTop=5;whiteSpace=wrap;" value="test-api-service" vertex="1">
-          <mxGeometry height="200" width="260" x="1130" y="135" as="geometry" />
+          <mxGeometry height="200" width="260" x="1170" y="120" as="geometry" />
         </mxCell>
         <mxCell id="apiController" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontSize=11;verticalAlign=top;spacingTop=2;align=center;fontColor=#333333;" value="&lt;b&gt;ApiController&lt;/b&gt;&lt;hr&gt;GET /api/health&lt;br&gt;GET /api/resource&lt;br&gt;POST /api/resource&lt;br&gt;GET /api/slow&lt;br&gt;GET /api/users/{id}" vertex="1">
-          <mxGeometry height="120" width="190" x="1180" y="190" as="geometry" />
+          <mxGeometry height="120" width="190" x="1220" y="170" as="geometry" />
         </mxCell>
         <mxCell id="testClient" parent="1" style="shape=component;align=center;spacingLeft=36;rounded=1;shadow=0;strokeColor=#a9c4eb;fillColor=#e8f0fe;fontSize=14;verticalAlign=top;spacingTop=5;whiteSpace=wrap;" value="test-client" vertex="1">
           <mxGeometry height="160" width="260" x="109" y="135" as="geometry" />
@@ -68,13 +65,13 @@
           <mxGeometry height="130" width="200" x="139" y="970" as="geometry" />
         </mxCell>
         <mxCell id="zookeeper" parent="1" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;verticalAlign=middle;align=center;" value="&lt;b&gt;ZooKeeper&lt;/b&gt;&lt;br&gt;&lt;i&gt;:2181&lt;/i&gt;&lt;hr&gt;Distributed config store&lt;br&gt;/rate-limiter/rules&lt;br&gt;Watch for changes" vertex="1">
-          <mxGeometry height="130" width="200" x="440" y="970" as="geometry" />
+          <mxGeometry height="130" width="200" x="436" y="970" as="geometry" />
         </mxCell>
         <mxCell id="prometheus" parent="1" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;verticalAlign=middle;align=center;" value="&lt;b&gt;Prometheus&lt;/b&gt;&lt;br&gt;&lt;i&gt;:9091&lt;/i&gt;&lt;hr&gt;Scrapes /actuator/prometheus&lt;br&gt;rate_limiter.requests.*" vertex="1">
-          <mxGeometry height="120" width="200" x="736" y="970" as="geometry" />
+          <mxGeometry height="120" width="200" x="1023" y="970" as="geometry" />
         </mxCell>
         <mxCell id="grafana" parent="1" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;verticalAlign=middle;align=center;" value="&lt;b&gt;Grafana&lt;/b&gt;&lt;br&gt;&lt;i&gt;:3000&lt;/i&gt;&lt;hr&gt;Dashboards&lt;br&gt;Visualization" vertex="1">
-          <mxGeometry height="110" width="180" x="1030" y="970" as="geometry" />
+          <mxGeometry height="110" width="180" x="1317" y="970" as="geometry" />
         </mxCell>
         <mxCell id="e1" edge="1" parent="1" source="testClient" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeColor=#0000FF;strokeWidth=2;dashed=1;" target="globalFilter">
           <mxGeometry relative="1" as="geometry" />
@@ -114,30 +111,17 @@
             <mxPoint x="14" y="-42" as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="e5" edge="1" parent="1" source="globalFilter" style="rounded=1;orthogonalLoop=1;jettySize=auto;strokeColor=#9673a6;strokeWidth=1;dashed=1;exitX=1.01;exitY=0.815;exitDx=0;exitDy=0;exitPerimeter=0;" target="ruleMatchService">
+        <mxCell id="e5" edge="1" parent="1" source="globalFilter" style="rounded=1;orthogonalLoop=1;jettySize=auto;strokeColor=#9673a6;strokeWidth=1;dashed=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" target="ruleMatchService">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
-              <mxPoint x="1150" y="406" />
+              <mxPoint x="1150" y="280" />
               <mxPoint x="1150" y="830" />
             </Array>
           </mxGeometry>
         </mxCell>
         <mxCell id="e5label" connectable="0" parent="e5" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=9;fontColor=#9673a6;" value="finds matching rule" vertex="1">
           <mxGeometry relative="1" x="0.3" as="geometry">
-            <mxPoint as="offset" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="e6" edge="1" parent="1" source="rulesController" style="rounded=1;orthogonalLoop=1;jettySize=auto;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeColor=#9673a6;strokeWidth=1;dashed=1;" target="configService">
-          <mxGeometry relative="1" as="geometry">
-            <Array as="points">
-              <mxPoint x="770" y="500" />
-              <mxPoint x="1015" y="500" />
-            </Array>
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="e6label" connectable="0" parent="e6" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=9;fontColor=#9673a6;" value="manages rules" vertex="1">
-          <mxGeometry relative="1" x="-0.1" as="geometry">
-            <mxPoint x="71" as="offset" />
+            <mxPoint y="-9" as="offset" />
           </mxGeometry>
         </mxCell>
         <mxCell id="e7" edge="1" parent="1" source="factory" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;strokeColor=#b85450;strokeWidth=1;dashed=1;" target="rateLimiterIface">
@@ -176,7 +160,7 @@
             <mxPoint x="-5" y="-52" as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="e14" edge="1" parent="1" source="core" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;exitX=0.25;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeColor=#b85450;strokeWidth=2;" target="redis">
+        <mxCell id="e14" edge="1" parent="1" source="core" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeColor=#b85450;strokeWidth=2;exitX=0.303;exitY=0.999;exitDx=0;exitDy=0;exitPerimeter=0;" target="redis">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="e14label" connectable="0" parent="e14" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;fontColor=#b85450;" value="&lt;b&gt;Lua scripts&lt;/b&gt;&lt;br&gt;Lettuce client" vertex="1">
@@ -184,7 +168,7 @@
             <mxPoint as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="e15" edge="1" parent="1" source="core" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;exitX=0.45;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeColor=#82b366;strokeWidth=2;" target="zookeeper">
+        <mxCell id="e15" edge="1" parent="1" source="core" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;exitX=0.45;exitY=1;exitDx=0;exitDy=0;entryX=0.855;entryY=0;entryDx=0;entryDy=4.35;strokeColor=#82b366;strokeWidth=2;entryPerimeter=0;" target="zookeeper">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="e15label" connectable="0" parent="e15" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;fontColor=#82b366;" value="&lt;b&gt;Curator client&lt;/b&gt;&lt;br&gt;NodeCache watch" vertex="1">
@@ -234,6 +218,12 @@
         </mxCell>
         <mxCell id="title" parent="1" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=20;fontStyle=1;fontColor=#333333;" value="Rate Limiter — Components Diagram" vertex="1">
           <mxGeometry height="40" width="440" x="540" y="30" as="geometry" />
+        </mxCell>
+        <mxCell id="GAL-lIewK0RmT2LhRvQt-2" edge="1" parent="1" source="GAL-lIewK0RmT2LhRvQt-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;" target="zookeeper">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="GAL-lIewK0RmT2LhRvQt-1" parent="1" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;verticalAlign=middle;align=center;" value="&lt;b&gt;zoonavigator&lt;/b&gt;&lt;br&gt;&lt;i&gt;:9000&lt;/i&gt;&lt;hr&gt;Manages rules stored in ZooKeeper&lt;br&gt;/rate-limiter/rules" vertex="1">
+          <mxGeometry height="130" width="200" x="730" y="970" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
