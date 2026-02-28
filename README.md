@@ -11,7 +11,7 @@ Distributed rate limiting library and API gateway built with Java 21, Spring Clo
                            │
               ┌────────────┴────────────┐
               ▼                         ▼
-     ┌─────────────────┐      ┌─────────────────┐
+     ┌──────────────────┐      ┌──────────────────┐
      │ Rate Limiter GW  │      │ Rate Limiter GW  │
      │    (port 8081)   │      │    (port 8082)   │
      └────┬──────┬──────┘      └──────┬──────┬────┘
