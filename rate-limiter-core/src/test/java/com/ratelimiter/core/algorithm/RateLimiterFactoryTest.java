@@ -4,7 +4,8 @@ import com.ratelimiter.core.model.AlgorithmType;
 import io.lettuce.core.api.sync.RedisCommands;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
+import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.mockito.Mockito.mock;
 
 class RateLimiterFactoryTest {
